@@ -12,6 +12,8 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-    import = "user.plugins"
+    import = "plugins"
 })
 
+-- load files in core
+require("core")
