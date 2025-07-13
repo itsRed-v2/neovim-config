@@ -12,7 +12,10 @@ vim.opt.scrolloff = 5 -- scroll pour que les 5 lignes autour de la ligne active 
 vim.opt.ignorecase = true -- ignore la casse lors d'une recherche
 vim.opt.smartcase = true -- sauf si la recherche contient des lettres majuscules
 
-vim.opt.undofile = true -- persistence du undo même après avoir fermé un buffer
+-- vim.opt.undofile = true -- persistence du undo même après avoir fermé un buffer
+
+vim.opt.termguicolors = true -- apparamment nécessaire pour que les couleurs marchent mieux
+vim.opt.signcolumn = "yes" -- affiche une colonne en plus pour les symboles (warnings, etc): évite de décaler le texte
 
 -- affichage des caractères spéciaux invisibles
 vim.opt.list = true
