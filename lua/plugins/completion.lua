@@ -1,22 +1,25 @@
 return {
     {
         "hrsh7th/nvim-cmp",
+        event = { "InsertEnter", "CmdlineEnter" },
         dependencies = {
             "neovim/nvim-lspconfig",
             "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-path",
-            "hrsh7th/cmp-cmdline",
+            "hrsh7th/cmp-buffer", -- source pour compléter avec les mots déjà présents dans le buffer
+            "hrsh7th/cmp-path", -- source pour compléter les chemins de fichiers
+            "hrsh7th/cmp-cmdline", -- source pour les completions de la cmdline
+            "hrsh7th/cmp-emoji", -- complétion d'émojis à la saisie de ":"
             "L3MON4D3/LuaSnip",
             "saadparwaiz1/cmp_luasnip",
-            "rafamadriz/friendly-snippets",
-            "onsails/lspkind.nvim"
+            "rafamadriz/friendly-snippets", -- collection de snippets pratiques
+            "onsails/lspkind.nvim" -- pour afficher le type de complétion un peu comme dans vscode (fonction / variable / etc ...)
         },
         config = function()
             local cmp = require('cmp')
             local luasnip = require('luasnip')
             local lspkind = require('lspkind')
 
+            -- chargement des snippets (comme friendly-snippets)
             require('luasnip.loaders.from_vscode').lazy_load()
 
             -- Automatically insert '(' after selecting function or method item
@@ -35,6 +38,7 @@ return {
                                 and not context.in_syntax_group("Comment")
                     end
                 end,
+                -- On utilise luasnip comme moteur de snippets
                 snippet = {
                     expand = function(args)
                         luasnip.lsp_expand(args.body)
@@ -45,31 +49,42 @@ return {
                     completion = cmp.config.window.bordered(),
                     documentation = cmp.config.window.bordered(),
                 },
+                -- way too many mappings
                 mapping = cmp.mapping.preset.insert({
                     ["<C-n>"] = cmp.mapping.select_next_item(),
                     ["<C-p>"] = cmp.mapping.select_prev_item(),
-                    ["<C-Space>"] = cmp.mapping.complete(),
+                    ["<Tab>"] = cmp.mapping.select_next_item(),
+                    ["<S-Tab>"] = cmp.mapping.select_prev_item(),
+                    ["<C-a>"] = cmp.mapping.scroll_docs(-1),
+                    ["<C-q>"] = cmp.mapping.scroll_docs(1),
+                    ["<C-Space>"] = cmp.mapping.complete(), -- ouvre la fenêtre d'auto-complétion
                     ["<C-e>"] = cmp.mapping.abort(),
                     -- Todo : upgrade this (see cmp wiki)
-                    ["<CR>"] = cmp.mapping.confirm({ select = true })
+                    ["<CR>"] = cmp.mapping.confirm({ select = true }), -- accepte la sélection courante
                 }),
                 sources = cmp.config.sources({
-                    { name = 'nvim_lsp' },
-                    { name = 'luasnip' },
-                }, {
-                    { name = 'buffer' },
+                    { name = 'nvim_lsp' }, -- LSP
+                    { name = 'luasnip' }, -- snippets
+                    { name = 'path' }, -- chemins du système de fichiers
+                    { name = 'emoji' }, -- super emojis
+                    { name = 'buffer' }, -- texte du buffer courant
                 }),
                 formatting = {
+                    -- affiche un symbole ~ pour les snippets expandables
+                    expandable_indicator = true,
+                    -- indique le type et la source pour chaque entrée
                     format = lspkind.cmp_format({
                         mode = "symbol_text",
                         menu = {
                             nvim_lsp = "[LSP]",
                             luasnip = "[LuaSnip]",
+                            path = "[Path]",
+                            emoji = "[Emoji]",
                             buffer = "[Buffer]"
                         }
                     })
                 }
-            })
+            });
 
             -- '/' and '?' cmdline setup
             cmp.setup.cmdline({ '/', '?' }, {
@@ -77,7 +92,7 @@ return {
                 sources = {
                     { name = "buffer" }
                 }
-            })
+            });
 
             -- ':' cmdline setup
             cmp.setup.cmdline(':', {
@@ -93,7 +108,7 @@ return {
                         }
                     }
                 })
-            })
+            });
         end
     }
 }
