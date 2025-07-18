@@ -17,8 +17,8 @@ return {
             }
         })
 
-        vim.keymap.set("n", "<leader>t", ":Neotree toggle<CR>", { desc = "Ouvrir / fermer l'explorateur de fichiers " });
-        vim.keymap.set("n", "<leader>b", ":Neotree toggle show buffers right<CR>", { desc = "Ouvrir/fermer les buffers" });
-        vim.keymap.set("n", "<leader>s", ":Neotree float git_status<CR>", { desc = "Ouvrir/fermer le git status" });
+        vim.keymap.set("n", "<leader>t", "<Cmd>Neotree toggle<CR>", { desc = "Ouvrir / fermer l'explorateur de fichiers " });
+        vim.keymap.set("n", "<leader>b", "<Cmd>Neotree toggle show buffers right<CR>", { desc = "Ouvrir/fermer les buffers" });
+        vim.keymap.set("n", "<leader>s", "<Cmd>Neotree float git_status<CR>", { desc = "Ouvrir/fermer le git status" });
     end,
 }

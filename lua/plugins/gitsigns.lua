@@ -42,7 +42,7 @@ return {
             end, "Show diff with HEAD~");
 
             -- Raccourci pour sélectionner le hunk en mode O-Pending (o) ou Visual (x)
-            map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "Select hunk");
+            map({ "o", "x" }, "ih", "<Cmd>Gitsigns select_hunk<CR>", "Select hunk");
         end
     }
 }

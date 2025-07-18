@@ -59,7 +59,6 @@ return {
                     ["<C-q>"] = cmp.mapping.scroll_docs(1),
                     ["<C-Space>"] = cmp.mapping.complete(), -- ouvre la fenêtre d'auto-complétion
                     ["<C-e>"] = cmp.mapping.abort(),
-                    -- Todo : upgrade this (see cmp wiki)
                     ["<CR>"] = cmp.mapping.confirm({ select = true }), -- accepte la sélection courante
                 }),
                 sources = cmp.config.sources({
