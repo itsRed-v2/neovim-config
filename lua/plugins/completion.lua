@@ -3,8 +3,6 @@ return {
         "hrsh7th/nvim-cmp",
         event = { "InsertEnter", "CmdlineEnter" },
         dependencies = {
-            "neovim/nvim-lspconfig",
-            "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer", -- source pour compléter avec les mots déjà présents dans le buffer
             "hrsh7th/cmp-path", -- source pour compléter les chemins de fichiers
             "hrsh7th/cmp-cmdline", -- source pour les completions de la cmdline

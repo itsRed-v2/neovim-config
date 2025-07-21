@@ -20,6 +20,7 @@ require("lazy").setup({
     spec = {
         -- import your plugins
         { import = "plugins" },
+        { import = "plugins.lsp" }
     },
     -- vérifie automatiquement les mises à jour des plugins mais sans notifier.
     -- lualine se charge d'afficher une icone avec le nombre de mises à jour
