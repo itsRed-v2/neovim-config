@@ -18,6 +18,7 @@ return {
         { "gi", "<Cmd>Telescope lsp_implementations<CR>", desc = "Show LSP implementations", mode = "n" },
         { "gt", "<Cmd>Telescope lsp_type_definitions<CR>", desc = "Show LSP type definitions", mode = "n" },
         { "gs", vim.lsp.buf.signature_help, desc = "Show LSP signature help", mode = "n" },
+        { "<C-s>", vim.lsp.buf.signature_help, desc = "Show LSP signature help", mode = { "n", "i" } },
         { "<leader>rn", vim.lsp.buf.rename, desc = "Smart rename", mode = "n" },
         { "<leader>D", "<Cmd>Telescope diagnostics bufnr=0<CR>", desc = "Show buffer diagnostics", mode = "n" },
         { "<leader>d", vim.diagnostic.open_float, desc = "Show line diagnostics", mode = "n" },
