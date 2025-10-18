@@ -27,6 +27,7 @@ return {
                 "clangd",
                 "lua_ls",
                 "intelephense",
+                "basedpyright"
             }
         });
     end
