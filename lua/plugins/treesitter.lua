@@ -22,6 +22,14 @@ return {
                 },
             },
 
+            -- Do not install parsers syncrhonously
+            sync_install = false,
+            -- Do not auto install missing parsers when entering buffer
+            auto_install = false,
+
+            ignore_install = {},
+            modules = {},
+
             -- langages installés
             ensure_installed = {
                 "bash",
@@ -41,6 +49,7 @@ return {
                 "vim",
                 "yaml",
                 "haskell",
+                "php",
             },
         })
     end

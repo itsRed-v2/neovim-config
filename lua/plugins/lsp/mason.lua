@@ -25,7 +25,8 @@ return {
             -- pour une liste des LSP disponibles: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
             ensure_installed = {
                 "clangd",
-                "lua_ls"
+                "lua_ls",
+                "intelephense",
             }
         });
     end
