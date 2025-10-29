@@ -48,5 +48,7 @@ return {
                 }
             }
         };
+
+        vim.lsp.inlay_hint.enable();
     end
 }

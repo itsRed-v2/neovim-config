@@ -14,3 +14,7 @@ vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Focus sur la fenêtre en haut" 
 vim.keymap.set("n", "<S-l>", "<Cmd>bnext<CR>", { desc = "Focus sur le buffer à droite" });
 vim.keymap.set("n", "<S-h>", "<Cmd>bprevious<CR>", { desc = "Focus sur le buffer à gauche" });
 
+-- activer / désactiver les inlay hints
+vim.keymap.set("n", "<leader>i", function()
+    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled());
+end, { desc = "Toggle inlay hints" });
