@@ -38,5 +38,15 @@ return {
                 }
             }
         });
+
+        vim.lsp.config.basedpyright = {
+            settings = {
+                basedpyright = {
+                    analysis = {
+                        typeCheckingMode = "standard"
+                    }
+                }
+            }
+        };
     end
 }
