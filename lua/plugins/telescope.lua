@@ -37,5 +37,6 @@ return {
         vim.keymap.set("n", "<leader>fx", builtin.grep_string, { desc = 'Telescope: Recherche la chaîne sous le curseur dans le dossier courant' });
         vim.keymap.set("n", "<leader>fv", builtin.treesitter, { desc = 'Telescope: Recherche de symboles du fichier courant avec treesitter' });
         vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = 'Telescope: Recherche dans les keymaps' });
+        vim.keymap.set("n", "<leader>fc", builtin.highlights, { desc = 'Telescope: Recherche dans les highlight groups' });
     end
 }
