@@ -39,7 +39,35 @@ return {
             }
         });
 
-        vim.lsp.config.basedpyright = {
+        local util = require("lspconfig.util")
+
+        local function detect_root_dir(fname)
+            return util.root_pattern(
+                '*.ino',
+                '.clangd',
+                '.clang-tidy',
+                '.clang-format',
+                'compile_commands.json',
+                'compile_flags.txt',
+                '.git'
+            )(fname);
+        end
+
+        local function has_ino_file(root)
+            local handle = vim.uv.fs_scandir(root)
+            if not handle then return false end
+
+            while true do
+                local name, type = vim.uv.fs_scandir_next(handle)
+                if not name then break end
+                if type == "file" and name:match("%.ino$") then
+                    return true
+                end
+            end
+            return false
+        end
+
+        vim.lsp.config("basedpyright", {
             settings = {
                 basedpyright = {
                     analysis = {
@@ -47,7 +75,45 @@ return {
                     }
                 }
             }
-        };
+        });
+
+        vim.lsp.config("clangd", {
+            root_dir = function(bufnr, on_dir)
+                local fname = vim.api.nvim_buf_get_name(bufnr)
+                local root_dir = detect_root_dir(fname)
+                if not has_ino_file(root_dir) then
+                    vim.api.nvim_echo({ { "Using clangd LSP", "ModeMsg" } }, false, {})
+                    on_dir(root_dir)
+                end
+            end
+        });
+
+        vim.lsp.config("arduino_language_server", {
+            capabilities = {
+                textDocument = {
+                  semanticTokens = vim.NIL,
+                },
+                workspace = {
+                  semanticTokens = vim.NIL,
+                },
+            },
+            cmd = {
+                "arduino-language-server",
+                "-cli", "arduino-cli",
+                "-cli-config", vim.fn.expand("~/.arduino15/arduino-cli.yaml"),
+                "-fqbn", "esp32:esp32:esp32",
+                "-clangd", "clangd"
+            },
+            filetypes = { "arduino", "c", "cpp" },
+            root_dir = function(bufnr, on_dir)
+                local fname = vim.api.nvim_buf_get_name(bufnr)
+                local root_dir = detect_root_dir(fname)
+                if has_ino_file(root_dir) then
+                    vim.api.nvim_echo({ { "Using arduino LSP", "ModeMsg" } }, false, {})
+                    on_dir(root_dir)
+                end
+            end,
+        });
 
         vim.lsp.inlay_hint.enable();
     end

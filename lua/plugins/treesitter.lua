@@ -50,6 +50,7 @@ return {
                 "yaml",
                 "haskell",
                 "php",
+                "arduino",
             },
         })
     end
